@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
 
+ALLOWED_HOSTS = ['*']
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security settings
@@ -99,3 +101,9 @@ EMAIL_HOST_PASSWORD = 'ltloanrqtloxiwgb'
 FRONTEND_URL = 'http://127.0.0.1:8000'
 TIME_ZONE = 'UTC'  # or your desired timezone, e.g., 'America/New_York'
 USE_TZ = True
+
+
+# Deploment
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Add this
+
