@@ -1,0 +1,41 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/sign_up.css' %}">
+
+<div class="space"></div>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<form id="signup-form" action="#" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2>Student Sign Up</h2>
+
+    <label for="username">Username</label>
+    <input type="text" name="username" required />
+    
+    <label for="password">Password</label>
+    <input type="password" name="password" required />
+    
+    <label for="email">Email</label>
+    <input type="email" name="email" required />
+
+    <label for="student_id">Enrollment ID</label>
+    <input type="text" name="student_id" required />
+    
+    <label for="studentImage" class="form-label">Upload Image</label>
+    <input name="student_image" type="file" class="form-control" id="studentImage" required />
+
+    <label for="school_code">School Code</label>
+    <input type="text" name="school_code" required />
+    
+    <button type="submit">Sign Up</button>
+
+    <div class="login-prompt">
+        <p>Already have an account? <a href="{% url 'school_login' %}">Login here</a>.</p>
+        <p>Admin sign up? <a class="admin-signup" href="{% url 'register_school' %}">Sign up here</a>.</p>
+    </div>
+</form>

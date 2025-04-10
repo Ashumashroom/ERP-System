@@ -1,0 +1,32 @@
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">  <!-- Link to the CSS file -->
+
+    <form action="{% url 'student_login' %}" method="POST">
+        {% csrf_token %}
+        <h2>Login</h2>
+
+        <label for="username">Email</label>
+        <input type="text" name="username" id="username" required />
+        {% if error_username %}
+            <div class="email error">{{ error_username }}</div>
+        {% endif %}
+        
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required />
+        {% if error_password %}
+            <div class="password error">{{ error_password }}</div>
+        {% endif %}
+        
+        <h4><a href="{% url 'school_login' %}" style="color: white; text-decoration: none;">Admin Login</a></h4>
+        <a href="{% url 'register_student' %}" class="signup">Sign Up</a>
+        
+        <button type="submit">Login</button>
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+ 
+</body>
+</html>

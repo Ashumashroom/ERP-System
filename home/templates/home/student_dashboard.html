@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ school.name }} Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/school_dashboard.css' %}">
+    <style>
+        /* Chat Icon in Navbar */
+        .chat-icon {
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div id="logo">
+                <img src="{% static 'images/sl.png' %}" alt="School Logo">
+                <h1>{{ school.name }} Dashboard</h1>
+            </div>
+            <div class="navbar-links">
+                <a href="{% url 'logout_view' %}">Logout</a>
+                <!-- Chat Icon -->
+                <a href="{% url 'chat_list' %}">
+                <span class="chat-icon">💬</span></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>School Information</h2>
+        <p><strong>Code:</strong> {{ school.code }}</p>
+
+        <!-- Display messages -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Add Student Form -->
+        <div class="add-student-form">
+            <h3>Add New Student</h3>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="roll_number">Roll Number:</label>
+                <input type="text" name="roll_number" id="roll_number" required>
+
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" required>
+
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required>
+
+                <label for="student_image">Student Image:</label>
+                <input type="file" name="student_image" id="student_image">
+
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+
+                <button type="submit" name="add_student" class="first-button">Add Student</button>
+            </form>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search by ID, Name, or Email..." title="Search">
+        </div>
+
+        <!-- Student List Table -->
+        <h2>Student List</h2>
+        <button class="sort-button" onclick="sortTable()">Sort by ID (Asc)</button>
+
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Image</th>
+                    <th>Password</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.student_id }}</td>
+                    <td>{{ student.user.username }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>
+                        {% if student.student_image %}
+                            <img src="{{ student.student_image.url }}" alt="{{ student.user.username }}" width="50">
+                        {% else %}
+                            No image available
+                        {% endif %}
+                    </td>
+                    <td>******</td> <!-- Password is masked -->
+                    <td>
+                        <!-- Update Link (Opens modal form) -->
+                        <button class="first-button" onclick="openUpdateForm({{ student.id }}, '{{ student.user.username }}', '{{ student.email }}', '{{ student.student_id }}')">Update</button>
+
+                        <!-- Remove Student Form -->
+                        <form method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="student_id" value="{{ student.id }}">
+                            <button type="submit" name="remove_student" class="first-button" onclick="return confirm('Are you sure you want to remove this student?')">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No students found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; {{ school.name }} | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Search function for the student list
+        function searchFunction() {
+            var input = document.getElementById("searchInput");
+            var filter = input.value.toUpperCase();
+            var table = document.getElementById("studentTable");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+                var match = false;
+
+                for (var j = 0; j < cells.length - 1; j++) { // Exclude actions column
+                    if (cells[j] && cells[j].innerText.toUpperCase().indexOf(filter) > -1) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                rows[i].style.display = match ? "" : "none";
+            }
+        }
+
+        // Sort function for the student list by ID
+        function sortTable() {
+            var table = document.getElementById("studentTable");
+            var rows = Array.from(table.getElementsByTagName("tr")).slice(1); // Exclude the header row
+            var ascending = table.getAttribute("data-sort") !== "asc"; // Toggle between ascending and descending
+
+            rows.sort(function (a, b) {
+                var idA = parseInt(a.cells[0].innerText); // First cell in the row (ID)
+                var idB = parseInt(b.cells[0].innerText);
+
+                return ascending ? idA - idB : idB - idA; // Ascending or descending based on toggle
+            });
+
+            for (var i = 0; i < rows.length; i++) {
+                table.tBodies[0].appendChild(rows[i]);
+            }
+
+            table.setAttribute("data-sort", ascending ? "asc" : "desc");
+        }
+    </script>
+</body>
+</html>

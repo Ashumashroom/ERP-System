@@ -1,0 +1,312 @@
+/* General Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f7fc; /* Light background */
+    color: #333; /* Text color */
+    padding-top: 80px; /* Adds spacing below fixed navbar */
+    margin: 0;
+}
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(7, 125, 167, 0.7); /* Semi-transparent dark background */
+    color: white;
+    padding: 15px 40px;
+    border-radius: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(5px); /* Blur effect behind navbar */
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin-left: 30px;
+    transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #258dc5;  /* Gold color on hover */
+}
+
+/* Logo Styling */
+#logo {
+    display: flex;
+    align-items: center;
+}
+
+#logo img {
+    height: 50px;
+    margin-right: 20px;
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out;
+}
+
+#logo img:hover {
+    transform: scale(1.1);  /* Slight zoom effect on hover */
+}
+
+#logo h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    margin: 0;
+}
+
+/* Dashboard Container */
+.container {
+    max-width: 1200px;
+    margin: 100px auto 50px; /* Avoid overlap with navbar */
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #004d99; /* Blue color */
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+/* Section Titles */
+.section-title {
+    color: #004d99;
+    border-bottom: 2px solid #004d99;
+    padding-bottom: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #e0e0e0;
+}
+
+th {
+    background-color: #f0f0f0;
+    font-size: 1rem;
+    color: #333;
+}
+
+td {
+    background-color: #ffffff;
+    font-size: 1rem;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f2f7ff;
+}
+
+/* Buttons */
+.first-button {
+    background-color: #2575fc; /* Blue button */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.first-button:hover {
+    background-color: #1e63d4; /* Darker blue on hover */
+}
+
+.first-button:focus {
+    outline: none;
+}
+
+/* Form Fields */
+input[type="text"], input[type="email"], input[type="password"], select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: border 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
+    border-color: #2575fc;
+    background-color: #ffffff;
+}
+
+/* Search Box Styling */
+#searchRecord {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #b3cde0;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #003366; /* Dark blue */
+    background-color: #f2f9ff;
+}
+
+#searchRecord::placeholder {
+    color: #a1a1a1;
+}
+
+#searchRecord:focus {
+    outline: none;
+    border-color: #0056b3; /* Darker blue */
+    background-color: #e0f7ff;
+}
+
+/* Actionable Insights Section */
+.actionable-insights {
+    margin-top: 30px;
+}
+
+.actionable-insights ul {
+    list-style: none;
+    padding: 0;
+}
+
+.actionable-insights li {
+    background-color: #e7f1ff; /* Light blue background */
+    border: 1px solid #cce5ff;
+    padding: 12px;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+/* Upcoming Events Section */
+.upcoming-events {
+    margin-top: 30px;
+}
+
+.upcoming-events ul {
+    list-style: none;
+    padding: 0;
+}
+
+.upcoming-events li {
+    background-color: #e7f1ff;
+    border: 1px solid #cce5ff;
+    padding: 12px;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+/* Footer */
+.footer {
+    background-color: #004d99; /* Dark blue footer */
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+.footer p {
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar a {
+        margin-left: 0;
+        margin-top: 10px;
+        font-size: 1.2rem;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    .first-button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .actionable-insights li, .upcoming-events li {
+        font-size: 1rem;
+    }
+}
+
+/* Search Bar Styling */
+.search-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#searchInput {
+    width: 50%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Sort Button */
+.sort-button {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.sort-button:hover {
+    background-color: #82a7cc;
+}

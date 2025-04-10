@@ -1,0 +1,111 @@
+body {
+    background-color: #000;
+    background-image: 
+        radial-gradient(circle, rgba(0, 191, 255, 0.1) 20%, transparent 20%),
+        radial-gradient(circle, rgba(0, 191, 255, 0.1) 20%, transparent 20%);
+    background-size: 50px 50px, 50px 50px;
+    background-position: 0 0, 25px 25px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full height of the viewport */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+}
+
+.space {
+    height: 70px; /* Space above the form */
+}
+
+form {
+    width: 90%; /* Make the form responsive to the screen width */
+    max-width: 500px; /* Set a maximum width for larger screens */
+    padding: 20px; /* Reduced padding */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px; /* Reduced border radius */
+    background: rgba(51, 51, 51, 0.9); /* Slightly more opaque */
+    position: relative;
+}
+
+form h2 {
+    font-size: 2.4em;
+    font-weight: 900;
+    margin-bottom: 30px; /* Adjusted margin */
+    color: #00bfff; /* Bluish color for heading */
+    text-align: center; /* Center the heading */
+}
+
+input {
+    padding: 10px; /* Reduced padding for input fields */
+    border-radius: 4px;
+    border: 1px solid #555;
+    font-size: 1em;
+    width: 100%; /* Full width of the input fields */
+    background-color: #444;
+    color: #fff; /* Keep input text color white for contrast */
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #00bfff; /* Highlight border on focus */
+    outline: none;
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px; /* Adjusted margin */
+    color: #00bfff; /* Bluish color for labels */
+}
+
+button {
+    margin-top: 20px; /* Reduced margin for the button */
+    border-radius: 30px; /* Adjusted border radius */
+    background: #00bfff; /* Bluish background for button */
+    border: 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.8em;
+    display: block;
+    padding: 10px 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: #fff; /* Text color for button */
+    width: 100%; /* Make button full width */
+}
+
+button:hover {
+    background-color: #66ccff; /* Lighter bluish color on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* New styles for the login prompt */
+.login-prompt {
+    margin-top: 20px; /* Space between form and login prompt */
+    text-align: center; /* Center align the text */
+}
+
+.login-prompt p {
+    margin: 0;
+    color: #00bfff; /* Match color with the rest of the design */
+}
+
+.login-prompt a {
+    color: #00bfff; /* Color for the login link */
+}
+
+.login-prompt a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+.admin-signup {
+    color: #00bfff; /* Bluish color for admin sign-up link */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make it stand out */
+}
+
+.admin-signup:hover {
+    text-decoration: underline; /* Underline on hover */
+}

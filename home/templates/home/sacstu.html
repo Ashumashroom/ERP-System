@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Sports Items</title>
+  <style>
+    /* Basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #0066cc;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    #student-name {
+      color: #0066cc;
+    }
+
+    .student-area {
+      padding: 20px;
+      background-color: #ffffff;
+      margin: 0 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .item-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .item-table th, .item-table td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    .item-table th {
+      background-color: #f1f1f1;
+      font-weight: bold;
+    }
+
+    .item-table td {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .item-table .issued {
+      color: #4caf50;  /* Green */
+      font-weight: bold;
+    }
+
+    .item-table .overdue {
+      color: #f44336;  /* Red */
+      font-weight: bold;
+    }
+
+    .item-table .returned {
+      color: #2196f3;  /* Blue */
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 30px;
+    }
+
+    footer p {
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sports Items Issued to You</h1>
+  </header>
+
+  <div class="student-area">
+    <h2>Welcome, <span id="student-name">Ashish</span></h2>
+    
+    <table class="item-table">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Issue Date</th>
+          <th>Due Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Football</td>
+          <td>2025-04-01</td>
+          <td>2025-04-10</td>
+          <td class="issued">Issued</td>
+        </tr>
+        <tr>
+          <td>Badminton Racket</td>
+          <td>2025-03-28</td>
+          <td>2025-04-05</td>
+          <td class="overdue">Overdue</td>
+        </tr>
+        <tr>
+          <td>Tennis Ball</td>
+          <td>2025-04-02</td>
+          <td>2025-04-12</td>
+          <td class="returned">Returned</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>Student Activity Cell - All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>

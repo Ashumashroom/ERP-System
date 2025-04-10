@@ -1,0 +1,110 @@
+{% include 'external/header.html' %}
+{% load static %}
+
+<div class="cover-image">
+    <img src="{% static 'images/pratham-gupta-DksFIwoPLAA-unsplash.jpg' %}" alt="" id="c-img">
+    <div class="overlay-text">
+        <p style="text-align: left; margin-bottom: 0; font-size: 2em;">Lorem ipsum</p>
+        <p style="text-align: left; margin-top: 10px; margin-bottom: 5px; font-size: 100px; font-weight: 600;" class="animated-text">MINI_ERP</p>
+        <p style="font-size: 20px; font-weight: bold; padding: 10px; color: whitesmoke; text-align: left;" class="animated-text2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, saepe. <br>
+            Lorem ipsum dolor sit amet consectetur.
+        </p>
+    </div>
+</div>
+
+<!-- Announcements Section -->
+<div class="events" id="events">
+    <div class="text">
+        <p style="font-size: 40px; margin-bottom: 5px; font-weight: 600;">
+            <u style="color: red;">
+                <span style="color: white; text-decoration: underline yellow;">Lorem ipsum</span>
+            </u>
+        </p>
+        <p style="margin-top: 40px; font-size: 20px;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor aliquam earum ut facere possimus doloremque, assumenda consequuntur eum inventore suscipit quam, at id officiis laborum sit blanditiis exercitationem dolorum mollitia fuga nam in.
+        </p>
+    </div>
+    <a href="#" style="text-decoration: none;">
+        <div class="data" style="color: yellow; border-color: white;">
+            <ul id="feed">
+                {% for announcement in announcements %}
+                    <li>{{ announcement.content }}</li> <!-- Display the announcement directly -->
+                {% empty %}
+                    <li>No announcements available</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </a>
+</div>
+
+<!-- Services Section -->
+<p id="soc" style="font-size: 40px; margin-bottom: 5px; font-weight: 600; margin-left: 80px; margin-top: 100px;">
+    <span style="border-bottom: 5px solid yellow;">Services</span>
+</p>
+
+<div class="gallery-container" id="gall">
+    <a href="{% url 'run_script' %}" style="text-decoration: none;">
+        
+        <!-- <a href="http://localhost:3000" style="text-decoration: none;"> -->
+        <div class="image">
+            <img src="{% static 'images/nirmiti.jpg' %}" alt="Mark Attendance" style="height: 300px; width: 250px;">
+            <div class="name">Mark_Attendence_Face</div>
+        </div>
+    </a>
+    
+    <a href="{% url 'sac' %}" style="text-decoration: none;">
+        <div class="image">
+            <img src="{% static 'images/geneticx.jpg' %}" alt="" style="height: 300px; width: 250px;">
+            <div class="name">SAC</div>
+        </div>
+    </a>
+    <a href="{% url 'dashboard23' %}" style="text-decoration: none;">
+        <div class="image">
+            <img src="{% static 'images/virtuosi.jpg' %}" alt="" style="height: 300px; width: 250px;">
+            <div class="name">TASK</div>
+        </div>
+    </a>
+    <a href="#" style="text-decoration: none;">
+        <div class="image">
+            <img src="{% static 'images/rang.jpg' %}" alt="" style="height: 300px; width: 250px;">
+            <div class="name">upcoming</div>
+        </div>
+    </a>
+    <a href="#" style="text-decoration: none;">
+        <div class="image">
+            <img src="{% static 'images/sports.jpg' %}" alt="" style="height: 300px; width: 250px;">
+            <div class="name">Give-donation</div>
+        </div>
+    </a>
+</div>
+{% include 'external/footer.html' %}
+
+<script>
+    // Generate the JavaScript array with announcements passed from Django
+    const arr = [
+        {% for announcement in announcements %}
+            "{{ announcement.content | escapejs }}",  <!-- Escape content properly -->
+        {% empty %}
+            "No announcements available",  <!-- Fallback message if no announcements -->
+        {% endfor %}
+    ];
+
+    let i = 0;
+    setInterval(live, 2000);
+
+    function live() {
+        const list = document.getElementById("feed");
+        if (list.firstElementChild) {
+            list.removeChild(list.firstElementChild);
+        }
+
+        const li = document.createElement("li");
+        li.innerHTML = arr[i];
+        list.appendChild(li);
+        i++;
+        if (i >= arr.length) {
+            i = 0;
+        }
+    }
+</script>

@@ -1,0 +1,45 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">  <!-- Link to the CSS file -->
+
+<form action="{% url 'school_login' %}" method="POST">
+    {% csrf_token %}
+    {% if messages %}
+    <div class="messages" style="color: red; margin-bottom: 20px;">
+        {% for message in messages %}
+            <div class="message" style="margin: 5px 0;">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <h2>Login</h2>
+
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" required />
+    {% if error_username %}
+        <div class="email error">{{ error_username }}</div>
+    {% endif %}
+    
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required />
+    {% if error_password %}
+        <div class="password error">{{ error_password }}</div>
+    {% endif %}
+    
+    <button type="submit">Login</button>
+   
+    <h4>
+        <a href="{% url 'admin:index' %}" style="color: white; text-decoration: none;">Super Admin</a>
+    </h4>
+    
+    
+    <div class="forgot-password">
+        <a href="{% url 'password_reset_request' %}" style="color: rgb(35, 212, 247);">Forgot Password?</a>
+    </div>
+</form>
+
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
+
+</body>
+</html>

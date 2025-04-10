@@ -1,0 +1,251 @@
+/* General Styles */
+body, h1, h2, h3, h4, h5, p, a {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Body and Background */
+body {
+    background-color: rgb(0, 106, 255);
+    padding: 0;
+    margin: 0;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    background-color: #004d99;
+    color: white;
+    padding: 0 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Logo */
+#logo {
+    display: flex;
+    align-items: center;
+}
+
+#logo img {
+    height: 80px;
+    margin-right: 10px;
+}
+
+/* Main Section */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically */
+    height: auto; /* Ensures the container can stretch to fit content */
+}
+
+/* Dashboard Header */
+h1 {
+    color: #003366;
+}
+
+/* Student Information Section */
+.student-info, .attendance-info, .attendance-overview, .actionable-insights, .upcoming-events {
+    margin-top: 20px;
+}
+
+.student-info h2, .attendance-info h2, .attendance-overview h2, .actionable-insights h2, .upcoming-events h2 {
+    color: #004d99;
+    border-bottom: 2px solid #004d99;
+    padding-bottom: 10px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #b3cde0;
+}
+
+th {
+    background-color: #cce5ff;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f9ff;
+}
+
+tr:hover {
+    background-color: #e0f7ff;
+}
+
+/* Actionable Insights */
+.actionable-insights ul {
+    list-style: none;
+    padding: 0;
+}
+
+.actionable-insights li {
+    background-color: #e7f1ff;
+    border: 1px solid #cce5ff;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Buttons */
+.first-button {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.first-button:hover {
+    background-color: #004d99;
+}
+
+/* Attendance Chart */
+.attendance-chart {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the chart horizontally */
+    justify-content: center; /* Centers the chart vertically (if parent container height allows) */
+    height: 100%; /* Ensures it takes up the full available height of the parent container */
+}
+
+#attendanceChart {
+    width: 300px !important; /* Increased size */
+    height: 300px !important; /* Increased size */
+    margin-bottom: 20px; /* Adds space between the chart and the feedback text */
+}
+
+#attendanceFeedback {
+    font-size: 1.2em;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Chart Legend (centered below the chart) */
+.chart-legend {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.legend-item {
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.legend-color.present {
+    background-color: #4caf50; /* Green for Present */
+}
+
+.legend-color.absent {
+    background-color: #e57373; /* Red for Absent */
+}
+
+/* Upcoming Events Section */
+.upcoming-events ul {
+    list-style: none;
+    padding: 0;
+}
+
+.upcoming-events li {
+    background-color: #e7f1ff;
+    border: 1px solid #cce5ff;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .container {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .attendance-chart {
+        width: 100%;
+    }
+
+    #attendanceChart {
+        width: 250px !important; /* Adjusts chart size for small screens */
+        height: 250px !important; /* Adjusts chart size for small screens */
+    }
+
+    .student-photo img {
+        width: 120px; /* Resize image on small screens */
+        height: 120px;
+    }
+
+    table {
+        font-size: 14px; /* Smaller table font size on mobile */
+    }
+}
+/* Search Box Styling */
+#searchRecord {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #b3cde0;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #003366; /* Blue text color */
+    background-color: #f2f9ff; /* Light background for better contrast */
+}
+
+#searchRecord::placeholder {
+    color: #a1a1a1; /* Light gray color for the placeholder text */
+}
+
+#searchRecord:focus {
+    outline: none;
+    border-color: #0056b3; /* Blue border on focus */
+    background-color: #e0f7ff; /* Slightly darker background on focus */
+}

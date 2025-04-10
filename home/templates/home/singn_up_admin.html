@@ -1,0 +1,38 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/admin_signup.css' %}">
+
+<div class="space"></div>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<form id="signup-form" action="#" method="POST">
+    {% csrf_token %}
+    <h2>Admin Sign Up</h2>
+    
+    <label for="email">Email</label>
+    <input type="email" name="email" required />
+
+    <label for="institution_name">School Name</label>
+    <input type="text" name="institution_name" required />
+    
+    <label for="institution_code">School Code</label>
+    <input type="text" name="institution_code" required />
+    
+    <label for="username">Username</label>
+    <input type="text" name="username" required />
+    
+    <label for="password">Password</label>
+    <input type="password" name="password" required />
+    
+    <button type="submit">Sign Up</button>
+
+<div class="login-prompt">
+    <p>Already have an account? <a href="{% url 'school_login' %}">Login here</a>.</p>
+</div>
+</form>

@@ -1,0 +1,41 @@
+{% extends "home/base.html" %}
+<!-- def home(request):
+    peoples = [
+        {'name':'ashish' ,'age' : 26},
+        {'name':'anish','age': 29},
+         {'name':'tttt','age': 429},
+          {'name':'mmmmm','age': 4279},
+
+    ]
+
+    return render(request ,"home/table.html",context = {'peodples': peoples} ) -->
+    {%block start %}
+<table class="table">
+    <thead> 
+      <tr>
+        <th scope="col">s.no</th>
+        <th scope="col">name</th>
+        <th scope="col">age</th>
+        <th scope="col">vote</th>
+      </tr>
+    </thead>
+   
+{% for x in peodples %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{x.name}}</td>
+        <td>{{x.age}}</td>
+        <td>
+          {% if x.age >= 18 %}
+          😍
+          {% else %}
+          🥵
+          {% endif %}
+        </td>
+        {% endfor %}
+
+      </tr>
+    </tbody>
+  </table>
+  {{text|truncatechars:34}}
+  {% endblock %}

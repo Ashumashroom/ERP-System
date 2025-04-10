@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste-Watch Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="main" id="main">
+        
+        <!-- NavBar -->
+        <div class="navbar" id="navbar">
+            <div id="logo">
+                <img src="{% static 'images/logo.png' %}" alt="logo" style="height: 80px;">
+                <p style="color: white; font-size: 26px;">Dash_Board</p>
+            </div>
+            <div class="buttons">
+                <a href="#main">Home</a>
+                <a href="#events">Events</a>
+                <a href="#soc">Services</a>
+                {% if user.is_authenticated %}
+                    <span>Welcome, {{ user.username }}!</span>
+                    <a href="{% url 'logout_view' %}">Log out</a>
+                    <!-- Chat Icon Link -->
+                    <a href="{% url 'student_chat_detail' school_id=student.school.id %}">
+                        <span class="chat-icon">💬</span></a>
+                    <!-- <a href="{% url 'student_chat_detail' school_id=student.school.id %}" class="chat-icon">
+                        <img src="{% static 'images/chat-icon.png' %}" alt="Chat" style="width: 40px; height: 40px; border-radius: 50%; margin-left: 20px;"> -->
+                    </a>
+                {% else %}
+                    <a class="first-button" href="{% url 'student_login' %}">Login</a>
+                    <a class="first-button" href="{% url 'register_student' %}">Signup</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Student Photo Section -->
+            <section class="student-photo">
+                <h2>Resident Photo</h2>
+                <div style="display: flex; justify-content: center;">
+                    <img src="{{ student.student_image.url }}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%;">
+                </div>
+            </section>
+            <header>
+                <h1>Welcome, {{ user.username }}!</h1>
+            </header>
+
+            <div class="dashboard">
+                <!-- Student Information Section -->
+                <section class="student-info">
+                    <h2>Resident Details</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>School Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ student.school.name }}</td>
+                                <td>
+                                    <a href="{% url 'mark_attendance'%}">Attendce</a>
+                                    <a href="#">Update Image</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Attendance Records Section -->
+                <section class="attendance-info">
+                    <h2>Attendance Records</h2>
+                    <input type="text" id="searchRecord" placeholder="Search attendance records..." onkeyup="searchAttendance()">
+                    <table class="table table-striped" id="attendanceTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Day</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in attendance_records %}
+                            <tr>
+                                <td>{{ record.date|date:"Y-m-d" }}
+                               </td>
+                                <td>{{ record.date|date:"l" }}</td>
+                                <td>{{ record.time }}</td>
+
+                                
+                                <td>
+                                    {% if record.status == "Present" %}
+                                    <span class="status-present">{{ record.status }}</span>
+                                    {% else %}
+                                    <span class="status-absent">{{ record.status }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4">No attendance records found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <p><strong>Total Present Count:</strong> {{ total_present_count }}</p>
+                </section>
+
+                <!-- Attendance Overview Section -->
+                <section class="attendance-chart">
+                    <h2>Attendance Overview</h2>
+                    <canvas id="attendanceChart"></canvas>
+                    <div class="attendance-insights">
+                        <p><strong>Attendance Trend:</strong> {{ attendance_trend }}</p>
+                        <p><strong>Overall Attendance Percentage:</strong> {{ attendance_percentage }}%</p>
+                    </div>
+                </section>
+
+                <!-- User Actionable Insights -->
+                <section class="actionable-insights">
+                    <h2>Actionable Insights</h2>
+                    <ul>
+                        <li>Your attendance rate this month is {{ attendance_percentage }}%. Keep it up!</li>
+                        {% if attendance_percentage < 75 %}
+                            <li>Your attendance is below 75%. Try attending more classes to improve.</li>
+                        {% else %}
+                            <li>Great job! You're above 75% attendance!</li>
+                        {% endif %}
+                    </ul>
+                </section>
+
+                <!-- Upcoming Events Section -->
+                <section class="upcoming-events">
+                    <h2>Upcoming Events</h2>
+                    <ul>
+                        <li>School Meeting: {{ upcoming_event.date }} - {{ upcoming_event.name }}</li>
+                        <li>Sports Day: {{ sports_day.date }} - {{ sports_day.name }}</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const attendancePercentage = {{ attendance_percentage|default:0 }};
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+
+            // Render doughnut chart for attendance
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Present', 'Absent'],
+                    datasets: [{
+                        label: 'Attendance Percentage',
+                        data: [attendancePercentage, 100 - attendancePercentage],
+                        backgroundColor: ['#4caf50', '#e57373'], // Green for present, red for absent
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    cutout: '75%',
+                    plugins: {
+                        tooltip: { enabled: true },
+                        legend: { display: false }
+                    }
+                }
+            });
+        });
+
+        // Function to filter attendance records
+        function searchAttendance() {
+            const filter = document.getElementById('searchRecord').value.toLowerCase();
+            const rows = document.querySelectorAll('#attendanceTable tbody tr');
+            
+            rows.forEach(row => {
+                const columns = row.querySelectorAll('td');
+                const rowText = Array.from(columns).map(col => col.textContent.toLowerCase()).join(' ');
+                
+                if (rowText.includes(filter)) {
+                    row.style.display = '';  // Show row
+                } else {
+                    row.style.display = 'none';  // Hide row
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

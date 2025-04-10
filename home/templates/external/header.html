@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPEN_SOURCE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="main" id="main">
+        
+        <!--NavBar-->
+        <div class="navbar" id="navbar">
+            <div id="logo">
+                
+                <img src="{% static 'images/logo.png' %}" alt="logo" style="height: 80px;">
+                <p style="color: white; font-size: 26px;">MANAGEMENT</p>
+            </div>
+            
+            <div class="buttons">
+                <a href="#main">Home</a>
+                
+                <a href="#soc">Services</a>
+                
+                {% if user.is_authenticated %}
+                
+                {% if user.student %}
+        <!-- Content for student -->
+        <a href="{% url 'post_announcement' %}">Notice</a>
+        <a href="{% url 'student_dashboard' %}">Dashboard</a>
+        <a href="{% url 'logout_view' %}">Logout</a>
+        <a style="color: white;">{{ user.username }}</a>
+    {% else %}
+        <!-- Content for non-student users (school or other users) -->
+        <a href="{% url 'post_announcement'%}">Notify</a>
+
+        <a href="{% url 'school_dashboard' %}">Dashboard</a>
+        <a href="{% url 'logout_view' %}">Logout</a>
+        <a style="color: white;">{{ user.username }}</a>
+    {% endif %}
+
+                    <!-- <a style="color: white;">{{ user.username }}</a> -->
+                   
+                {% else %}
+                <a class="first-button" href="{% url 'school_login' %}" style="cursor: pointer;">Login</a>
+            
+                    <a class="first-button" href="{% url 'register_student' %}" style="cursor: pointer;">Signup</a>
+                {% endif %}
+                <!-- {% if user.is_authenticated %}
+    <a href="{% url 'logout_view'}">Log out</a>
+    <span style="color: white;">{{ user.username }}</span>
+{% else %}
+<a class="first-button" href="#" style="cursor: pointer;">Signup</a>
+    <a href="#">
+        <img src="{% static 'images/t2g.jpeg' %}" alt="profile_photo" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;"> -->
+
+    <!-- </a>
+
+{% endif %} -->
+
+            </div>
+        </div>
+     

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Notice</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6e7bff, #40c9f3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .dialog-box {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            padding: 40px;
+            text-align: center;
+            max-width: 90%;
+            transform: translateY(-50px);
+            opacity: 0;
+            animation: slideIn 1s forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        label {
+            font-size: 18px;
+            color: #444;
+            text-align: left;
+            margin-bottom: 8px;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #555;
+            background-color: #f7f7f7;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: #6e7bff;
+            box-shadow: 0 0 10px rgba(110, 123, 255, 0.3);
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 140px;
+        }
+
+        /* Button Styling */
+        button {
+            background-color: #6e7bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 60%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #4a60d1;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Link Styling */
+        a {
+            text-decoration: none;
+            color: #6e7bff;
+            font-size: 18px;
+            margin-top: 15px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #4a60d1;
+            text-decoration: underline;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 600px) {
+            .dialog-box {
+                padding: 20px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            button {
+                width: 80%;
+            }
+
+            a {
+                font-size: 16px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="dialog-box">
+        <h1>Post a New Notice</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br>
+            
+            <label for="content">Content:</label><br>
+            <textarea id="content" name="content" rows="4" required></textarea><br>
+            
+            <button type="submit">Post Notice</button>
+        </form>
+
+        <a href="{% url 'home' %}">Go back to announcements</a>
+    </div>
+</body>
+</html>
